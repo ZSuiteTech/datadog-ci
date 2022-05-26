@@ -134,6 +134,7 @@ export class InstrumentCommand extends Command {
 
     hasSpecifiedFunctions = this.functions.length !== 0 || this.config.functions.length !== 0
     const hasSpecifiedRegExPattern = this.regExPattern !== undefined && this.regExPattern !== ''
+      && this.config.regExPattern !== undefined && this.config.regExPattern !== ''
     if (!hasSpecifiedFunctions && !hasSpecifiedRegExPattern) {
       this.context.stdout.write(`${red('[Error]')} No functions specified for instrumentation.\n`)
 
@@ -192,6 +193,7 @@ export class InstrumentCommand extends Command {
       }
 
       try {
+        const regExPattern = this.regExPattern || this.config.regExPattern
         const cloudWatchLogs = new CloudWatchLogs({region})
         const lambda = new Lambda({region})
         this.context.stdout.write('Fetching Lambda functions, this might take a while.\n')
@@ -199,7 +201,7 @@ export class InstrumentCommand extends Command {
           lambda,
           cloudWatchLogs,
           region!,
-          this.regExPattern!,
+          regExPattern!,
           settings
         )
 

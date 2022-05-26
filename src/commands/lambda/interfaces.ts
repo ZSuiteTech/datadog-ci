@@ -12,6 +12,7 @@ export interface LambdaConfigOptions {
   flushMetricsToLogs?: string
   forwarder?: string
   functions: string[]
+  regExPattern: string
   interactive?: boolean
   layerAWSAccount?: string
   layerVersion?: string
